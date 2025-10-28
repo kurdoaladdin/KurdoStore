@@ -1,0 +1,1415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Premium SAMP Scripts - KurdoStore</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/6.6.6/css/flag-icons.min.css">
+  <style>
+    :root {
+      --primary-color: #6c5ce7;
+      --primary-light: #a29bfe;
+      --primary-dark: #341f97;
+      --dark-bg: #0f0c29;
+      --text-light: #ffffff;
+      --text-muted: #cccccc;
+      --card-bg: rgba(255, 255, 255, 0.05);
+      --transition: all 0.3s ease;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, var(--dark-bg), #302b63, #24243e);
+      background-size: 400% 400%;
+      animation: gradientMove 15s ease infinite;
+      color: var(--text-light);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 30px;
+    }
+    
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0;
+      margin-bottom: 40px;
+    }
+    
+    .logo {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary-light);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .logo i {
+      font-size: 1.8rem;
+    }
+    
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    
+    .account-btn {
+      color: var(--text-light);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: var(--transition);
+      padding: 10px 20px;
+      background: var(--card-bg);
+      border-radius: 8px;
+      backdrop-filter: blur(10px);
+    }
+    
+    .account-btn:hover {
+      color: var(--primary-light);
+      background: rgba(108, 92, 231, 0.2);
+    }
+    
+    .back-btn {
+      color: var(--text-light);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: var(--transition);
+      padding: 10px 20px;
+      background: var(--card-bg);
+      border-radius: 8px;
+      backdrop-filter: blur(10px);
+    }
+    
+    .back-btn:hover {
+      color: var(--primary-light);
+      transform: translateX(-5px);
+    }
+    
+    .store-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+    
+    .filters-section {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      flex: 2;
+      min-width: 300px;
+    }
+    
+    .filter-group {
+      flex: 1;
+      min-width: 200px;
+    }
+    
+    .filter-label {
+      display: block;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+    
+    .filter-select {
+      width: 100%;
+      padding: 12px 15px;
+      background: rgba(0,0,0,0.3);
+      border: 1px solid rgba(162, 155, 254, 0.3);
+      border-radius: 8px;
+      color: var(--text-light);
+      font-family: 'Inter', sans-serif;
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23a29bfe'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 15px center;
+      background-size: 15px;
+      transition: var(--transition);
+    }
+    
+    .filter-select:focus {
+      outline: none;
+      border-color: var(--primary-light);
+      box-shadow: 0 0 0 2px rgba(162, 155, 254, 0.3);
+    }
+    
+    .search-container {
+      flex: 1;
+      min-width: 250px;
+      position: relative;
+    }
+    
+    .search-input {
+      width: 100%;
+      padding: 12px 15px 12px 40px;
+      background: rgba(0,0,0,0.3);
+      border: 1px solid rgba(162, 155, 254, 0.3);
+      border-radius: 8px;
+      color: var(--text-light);
+      font-family: 'Inter', sans-serif;
+      transition: var(--transition);
+    }
+    
+    .search-input:focus {
+      outline: none;
+      border-color: var(--primary-light);
+      box-shadow: 0 0 0 2px rgba(162, 155, 254, 0.3);
+    }
+    
+    .search-icon {
+      position: absolute;
+      left: 12px;
+      top: 30%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+    
+    .currency-selector {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      background: var(--card-bg);
+      padding: 8px;
+      border-radius: 50px;
+      backdrop-filter: blur(10px);
+    }
+    
+    .currency-btn {
+      background: none;
+      border: none;
+      color: var(--text-light);
+      padding: 8px 15px;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9rem;
+    }
+    
+    .currency-btn.active {
+      background: var(--primary-color);
+      box-shadow: 0 4px 15px rgba(108, 92, 231, 0.4);
+    }
+    
+    .currency-flag {
+      width: 20px;
+      height: 15px;
+      border-radius: 2px;
+      object-fit: cover;
+    }
+    
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+    
+    .product-card {
+      background: var(--card-bg);
+      border-radius: 15px;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+      transition: var(--transition);
+      border: 1px solid rgba(162, 155, 254, 0.1);
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .product-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(108, 92, 231, 0.3);
+    }
+    
+    .product-image {
+      height: 200px;
+      background: rgba(162, 155, 254, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .product-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    
+    .product-image video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    
+    .product-card:hover .product-image img,
+    .product-card:hover .product-image video {
+      transform: scale(1.05);
+    }
+    
+    .product-badge {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: var(--primary-color);
+      color: white;
+      padding: 5px 10px;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      z-index: 2;
+    }
+    
+    .product-details {
+      padding: 25px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .product-title {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+      color: var(--primary-light);
+    }
+    
+    .product-category {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .product-category i {
+      color: var(--primary-light);
+      font-size: 0.9rem;
+    }
+    
+    .product-description {
+      font-size: 0.95rem;
+      margin-bottom: 20px;
+      line-height: 1.6;
+      flex: 1;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    
+    .product-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: auto;
+    }
+    
+    .price-container {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .product-price {
+      font-size: 1.3rem;
+      font-weight: 700;
+    }
+    
+    .product-price-iqd {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      display: none;
+    }
+    
+    .currency-iqd .product-price {
+      display: none;
+    }
+    
+    .currency-iqd .product-price-iqd {
+      display: block;
+    }
+    
+    .product-actions {
+      display: flex;
+      gap: 10px;
+    }
+    
+    .details-btn {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text-light);
+      border: none;
+      padding: 10px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 500;
+    }
+    
+    .details-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+    
+    .add-to-cart {
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+    }
+    
+    .add-to-cart:hover {
+      background: var(--primary-light);
+      transform: translateY(-2px);
+    }
+    
+    .empty-state {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text-muted);
+    }
+    
+    .empty-state i {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      opacity: 0.5;
+    }
+    
+    /* Shopping cart sidebar */
+    .cart-sidebar {
+      position: fixed;
+      top: 0;
+      right: -400px;
+      width: 400px;
+      height: 100vh;
+      background: var(--dark-bg);
+      box-shadow: -5px 0 15px rgba(0,0,0,0.3);
+      z-index: 1000;
+      transition: right 0.3s ease;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .cart-sidebar.active {
+      right: 0;
+    }
+    
+    .cart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    .cart-title {
+      font-size: 1.5rem;
+      color: var(--primary-light);
+    }
+    
+    .close-cart {
+      background: none;
+      border: none;
+      color: var(--text-light);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    
+    .cart-items {
+      flex: 1;
+      overflow-y: auto;
+      margin-bottom: 20px;
+    }
+    
+    .cart-item {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 20px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    .cart-item-image {
+      width: 80px;
+      height: 60px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 8px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    
+    .cart-item-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .cart-item-details {
+      flex: 1;
+    }
+    
+    .cart-item-title {
+      font-size: 1rem;
+      margin-bottom: 5px;
+      color: var(--primary-light);
+    }
+    
+    .cart-item-price {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+    
+    .remove-item {
+      background: none;
+      border: none;
+      color: #ff6b6b;
+      cursor: pointer;
+      font-size: 1rem;
+      align-self: flex-start;
+    }
+    
+    .cart-total {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+      text-align: right;
+    }
+    
+    .checkout-btn {
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 15px;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      width: 100%;
+    }
+    
+    .checkout-btn:hover {
+      background: var(--primary-light);
+    }
+    
+    .cart-icon {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: var(--primary-color);
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 5px 20px rgba(108, 92, 231, 0.5);
+      z-index: 999;
+      transition: var(--transition);
+    }
+    
+    .cart-icon:hover {
+      transform: scale(1.1);
+    }
+    
+    .cart-count {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background: #ff6b6b;
+      color: white;
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    
+    /* Product Modal */
+    .product-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(5px);
+      z-index: 2000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition);
+    }
+    
+    .product-modal.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .modal-content {
+      background: var(--dark-bg);
+      border-radius: 15px;
+      width: 90%;
+      max-width: 900px;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 30px;
+      position: relative;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    }
+    
+    .close-modal {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: none;
+      border: none;
+      color: var(--text-light);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    
+    .modal-media {
+      width: 100%;
+      height: 400px;
+      background: rgba(162, 155, 254, 0.1);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 30px;
+    }
+    
+    .modal-media img,
+    .modal-media video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .modal-title {
+      font-size: 2rem;
+      color: var(--primary-light);
+      margin-bottom: 15px;
+    }
+    
+    .modal-category {
+      font-size: 1rem;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .modal-price {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+    
+    .modal-description {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      margin-bottom: 30px;
+    }
+    
+    .modal-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .modal-add-to-cart {
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+    
+    .modal-add-to-cart:hover {
+      background: var(--primary-light);
+      transform: translateY(-2px);
+    }
+    
+    @media (max-width: 768px) {
+      .container {
+        padding: 20px;
+      }
+      
+      header {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+      }
+      
+      .header-right {
+        width: 100%;
+        justify-content: space-between;
+      }
+      
+      .store-header {
+        flex-direction: column;
+      }
+      
+      .filters-section {
+        width: 100%;
+      }
+      
+      .currency-selector {
+        margin-left: auto;
+      }
+      
+      .cart-sidebar {
+        width: 100%;
+        right: -100%;
+      }
+      
+      .cart-sidebar.active {
+        right: 0;
+      }
+      
+      .modal-content {
+        width: 95%;
+        padding: 20px;
+      }
+      
+      .modal-media {
+        height: 250px;
+      }
+      
+      .modal-title {
+        font-size: 1.5rem;
+      }
+      
+      .product-actions {
+        flex-direction: column;
+        width: 100%;
+      }
+      
+      .details-btn,
+      .add-to-cart {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+    
+    /* Pulse animation for new items */
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    
+    .pulse {
+      animation: pulse 0.5s ease;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <a href="index.html" class="logo">
+        <i class="fas fa-code"></i> KurdoStore
+      </a>
+      <div class="header-right">
+        <a href="login.html" class="account-btn">
+          <i class="fas fa-user"></i> Account
+        </a>
+        <a href="index.html" class="back-btn">
+          <i class="fas fa-arrow-left"></i> Back to Store
+        </a>
+      </div>
+    </header>
+    
+    <div class="store-header">
+      <div class="filters-section">
+        <div class="filter-group">
+          <label class="filter-label">Category</label>
+          <select class="filter-select" id="categoryFilter">
+            <option value="all">All Categories</option>
+            <option value="gamemode">Gamemode</option>
+            <option value="system">System</option>
+            <option value="textdraw">Textdraw</option>
+            <option value="mapping">Mapping</option>
+            <option value="anti-cheat">Anti-Cheat</option>
+            <option value="modpack">Modpack</option>
+          </select>
+        </div>
+        
+        <div class="filter-group">
+          <label class="filter-label">Price Range</label>
+          <select class="filter-select" id="priceFilter">
+            <option value="all">All Prices</option>
+            <option value="0-1">$0 - $1</option>
+            <option value="1-2">$1 - $2</option>
+            <option value="2-5">$2 - $5</option>
+            <option value="5-10">$5 - $10</option>
+          </select>
+        </div>
+        
+        <div class="search-container">
+          <i class="fas fa-search search-icon"></i>
+          <input type="text" class="search-input" placeholder="Search SAMP scripts..." id="searchInput">
+        </div>
+      </div>
+      
+      <div class="currency-selector">
+        <button class="currency-btn active" data-currency="usd">
+          <span class="fi fi-us"></span> USD
+        </button>
+        <button class="currency-btn" data-currency="iqd">
+          <span class="fi fi-iq"></span> IQD
+        </button>
+      </div>
+    </div>
+    
+    <div class="products-grid" id="productsGrid">
+      <!-- Product 1 -->
+      <div class="product-card" data-category="gamemode" data-price="1">
+        <div class="product-image">
+          <img src="https://cdn.glitch.global/8188fe2e-4a88-414a-b90a-b1cd61ad6924/bafel.jpg?v=1745095950036" alt="24/7 Store System">
+          <div class="product-badge">Popular</div>
+        </div>
+        <div class="product-details">
+          <h3 class="product-title">24/7 Store System</h3>
+          <div class="product-category">
+            <i class="fas fa-tag"></i> SAMP | Inspiring+samp
+          </div>
+          <p class="product-description">
+            Complete 24/7 store system for SAMP servers. Players can buy snacks, drinks, and essentials anytime. Includes admin controls, inventory system, and customizable products.
+          </p>
+          <div class="product-footer">
+            <div class="price-container">
+              <span class="product-price">$1.00</span>
+              <span class="product-price-iqd">1,450 IQD</span>
+            </div>
+            <div class="product-actions">
+              <button class="details-btn">
+                <i class="fas fa-info-circle"></i> Details
+              </button>
+              <button class="add-to-cart">
+                <i class="fas fa-cart-plus"></i> Add
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Product 2 -->
+      <div class="product-card" data-category="system" data-price="2">
+        <div class="product-image">
+          <video autoplay loop muted playsinline>
+            <source src="https://example.com/samp-video.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          <div class="product-badge">New</div>
+        </div>
+        <div class="product-details">
+          <h3 class="product-title">Amino System</h3>
+          <div class="product-category">
+            <i class="fas fa-tag"></i> SAMP | systems-samp
+          </div>
+          <p class="product-description">
+            Advanced amino system where players need amino to shoot weapons. Includes trading system, crafting, and different amino types with unique effects on gameplay.
+          </p>
+          <div class="product-footer">
+            <div class="price-container">
+              <span class="product-price">$2.00</span>
+              <span class="product-price-iqd">2,900 IQD</span>
+            </div>
+            <div class="product-actions">
+              <button class="details-btn">
+                <i class="fas fa-info-circle"></i> Details
+              </button>
+              <button class="add-to-cart">
+                <i class="fas fa-cart-plus"></i> Add
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Product 3 -->
+      <div class="product-card" data-category="mapping" data-price="1">
+        <div class="product-image">
+          <img src="https://cdn.discordapp.com/attachments/1295832041585381416/1362872202344792376/0040.png?ex=6803f925&is=6802a7a5&hm=9e609c515ff031f0fb1920e73feba14e15b48fe78492fabfc1949057de8abd85&" alt="Nightclub Mapping">
+        </div>
+        <div class="product-details">
+          <h3 class="product-title">Nightclub Mapping</h3>
+          <div class="product-category">
+            <i class="fas fa-tag"></i> SAMP | Inspiring+samp
+          </div>
+          <p class="product-description">
+            Premium nightclub mapping with dance floor, VIP areas, bar, and custom textures. Fully optimized with collision detection and includes DJ booth with animations.
+          </p>
+          <div class="product-footer">
+            <div class="price-container">
+              <span class="product-price">$1.00</span>
+              <span class="product-price-iqd">1,450 IQD</span>
+            </div>
+            <div class="product-actions">
+              <button class="details-btn">
+                <i class="fas fa-info-circle"></i> Details
+              </button>
+              <button class="add-to-cart">
+                <i class="fas fa-cart-plus"></i> Add
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 4 -->
+      <div class="product-card" data-category="mapping" data-price="3">
+        <div class="product-image">
+          <img src="https://discord.com/channels/@me/1295832041585381416/1362477960153661541" alt="Casanegra City">
+          <div class="product-badge">Best Seller</div>
+        </div>
+        <div class="product-details">
+          <h3 class="product-title">Casanegra City</h3>
+          <div class="product-category">
+            <i class="fas fa-tag"></i> SAMP | Mapping
+          </div>
+          <p class="product-description">
+            Complete city mapping with custom buildings, interiors, and optimized performance. Includes 50+ unique locations, custom roads, and landmarks with LOD models for better FPS.
+          </p>
+          <div class="product-footer">
+            <div class="price-container">
+              <span class="product-price">$3.00</span>
+              <span class="product-price-iqd">4,350 IQD</span>
+            </div>
+            <div class="product-actions">
+              <button class="details-btn">
+                <i class="fas fa-info-circle"></i> Details
+              </button>
+              <button class="add-to-cart">
+                <i class="fas fa-cart-plus"></i> Add
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Product 5 -->
+      <div class="product-card" data-category="anti-cheat" data-price="5">
+        <div class="product-image">
+          <img src="https://via.placeholder.com/400x200/6c5ce7/ffffff?text=Anti-Cheat" alt="Anti-Cheat System">
+        </div>
+        <div class="product-details">
+          <h3 class="product-title">Anti-Cheat System</h3>
+          <div class="product-category">
+            <i class="fas fa-tag"></i> SAMP | Security
+          </div>
+          <p class="product-description">
+            Comprehensive anti-cheat solution detecting common hacks with admin alerts. Detects speed hacks, weapon hacks, teleport hacks, and includes player statistics monitoring.
+          </p>
+          <div class="product-footer">
+            <div class="price-container">
+              <span class="product-price">$5.00</span>
+              <span class="product-price-iqd">7,250 IQD</span>
+            </div>
+            <div class="product-actions">
+              <button class="details-btn">
+                <i class="fas fa-info-circle"></i> Details
+              </button>
+              <button class="add-to-cart">
+                <i class="fas fa-cart-plus"></i> Add
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Product 6 -->
+      <div class="product-card" data-category="modpack" data-price="2">
+        <div class="product-image">
+          <video autoplay loop muted playsinline>
+            <source src="https://example.com/minigame-demo.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+        <div class="product-details">
+          <h3 class="product-title">Minigame Pack</h3>
+          <div class="product-category">
+            <i class="fas fa-tag"></i> SAMP | Games
+          </div>
+          <p class="product-description">
+            Collection of 10+ minigames including races, deathmatches, and casino games. Each minigame includes score tracking, rewards system, and customizable settings.
+          </p>
+          <div class="product-footer">
+            <div class="price-container">
+              <span class="product-price">$2.00</span>
+              <span class="product-price-iqd">2,900 IQD</span>
+            </div>
+            <div class="product-actions">
+              <button class="details-btn">
+                <i class="fas fa-info-circle"></i> Details
+              </button>
+              <button class="add-to-cart">
+                <i class="fas fa-cart-plus"></i> Add
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shopping Cart Icon -->
+  <div class="cart-icon" id="cartIcon">
+    <i class="fas fa-shopping-cart"></i>
+    <span class="cart-count" id="cartCount">0</span>
+  </div>
+
+  <!-- Shopping Cart Sidebar -->
+  <div class="cart-sidebar" id="cartSidebar">
+    <div class="cart-header">
+      <h3 class="cart-title">Your Cart</h3>
+      <button class="close-cart" id="closeCart">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="cart-items" id="cartItems">
+      <!-- Cart items will be added here dynamically -->
+    </div>
+    <div class="cart-total" id="cartTotal">
+      Total: $0.00
+    </div>
+    <button class="checkout-btn" id="checkoutBtn">
+      Proceed to Checkout
+    </button>
+  </div>
+
+  <!-- Product Modal -->
+  <div class="product-modal" id="productModal">
+    <div class="modal-content">
+      <button class="close-modal" id="closeModal">
+        <i class="fas fa-times"></i>
+      </button>
+      <div class="modal-media" id="modalMedia">
+        <!-- Media will be added here dynamically -->
+      </div>
+      <h2 class="modal-title" id="modalTitle">Product Title</h2>
+      <div class="modal-category" id="modalCategory">
+        <i class="fas fa-tag"></i> Category
+      </div>
+      <div class="modal-price" id="modalPrice">$0.00</div>
+      <p class="modal-description" id="modalDescription">
+        Product description will be shown here with full details.
+      </p>
+      <div class="modal-footer">
+        <div class="price-container">
+          <span class="product-price" id="modalPriceUSD">$0.00</span>
+          <span class="product-price-iqd" id="modalPriceIQD">0 IQD</span>
+        </div>
+        <button class="modal-add-to-cart" id="modalAddToCart">
+          <i class="fas fa-cart-plus"></i> Add to Cart
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Shopping cart functionality
+    const cart = [];
+    const cartIcon = document.getElementById('cartIcon');
+    const cartCount = document.getElementById('cartCount');
+    const cartSidebar = document.getElementById('cartSidebar');
+    const closeCart = document.getElementById('closeCart');
+    const cartItems = document.getElementById('cartItems');
+    const cartTotal = document.getElementById('cartTotal');
+    const checkoutBtn = document.getElementById('checkoutBtn');
+    
+    // Product modal elements
+    const productModal = document.getElementById('productModal');
+    const closeModal = document.getElementById('closeModal');
+    const modalMedia = document.getElementById('modalMedia');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalCategory = document.getElementById('modalCategory');
+    const modalPriceUSD = document.getElementById('modalPriceUSD');
+    const modalPriceIQD = document.getElementById('modalPriceIQD');
+    const modalDescription = document.getElementById('modalDescription');
+    const modalAddToCart = document.getElementById('modalAddToCart');
+    
+    // Toggle cart sidebar
+    cartIcon.addEventListener('click', () => {
+      cartSidebar.classList.add('active');
+    });
+    
+    closeCart.addEventListener('click', () => {
+      cartSidebar.classList.remove('active');
+    });
+    
+    // Toggle product modal
+    function openModal(productCard) {
+      const title = productCard.querySelector('.product-title').textContent;
+      const category = productCard.querySelector('.product-category').innerHTML;
+      const priceUSD = productCard.querySelector('.product-price').textContent;
+      const priceIQD = productCard.querySelector('.product-price-iqd').textContent;
+      const description = productCard.querySelector('.product-description').textContent;
+      
+      // Get media element (could be img or video)
+      const mediaElement = productCard.querySelector('.product-image img, .product-image video');
+      const mediaClone = mediaElement.cloneNode(true);
+      
+      // Clear previous media and add new one
+      modalMedia.innerHTML = '';
+      modalMedia.appendChild(mediaClone);
+      
+      // Update modal content
+      modalTitle.textContent = title;
+      modalCategory.innerHTML = category;
+      modalPriceUSD.textContent = priceUSD;
+      modalPriceIQD.textContent = priceIQD;
+      modalDescription.textContent = description;
+      
+      // Set data for add to cart button
+      modalAddToCart.dataset.title = title;
+      modalAddToCart.dataset.priceUSD = priceUSD.replace('$', '');
+      modalAddToCart.dataset.priceIQD = priceIQD;
+      modalAddToCart.dataset.image = productCard.querySelector('.product-image img') ? 
+        productCard.querySelector('.product-image img').src : '';
+      
+      // Show modal
+      productModal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    
+    closeModal.addEventListener('click', () => {
+      productModal.classList.remove('active');
+      document.body.style.overflow = '';
+      
+      // Pause any videos when closing modal
+      const videos = modalMedia.querySelectorAll('video');
+      videos.forEach(video => {
+        video.pause();
+      });
+    });
+    
+    // Close modal when clicking outside content
+    productModal.addEventListener('click', (e) => {
+      if (e.target === productModal) {
+        closeModal.click();
+      }
+    });
+    
+    // Add to cart from modal
+    modalAddToCart.addEventListener('click', function() {
+      const title = this.dataset.title;
+      const priceUSD = parseFloat(this.dataset.priceUSD);
+      const priceIQD = this.dataset.priceIQD;
+      const image = this.dataset.image;
+      
+      // Check if item already in cart
+      const existingItem = cart.find(item => item.title === title);
+      
+      if (existingItem) {
+        existingItem.quantity++;
+      } else {
+        cart.push({
+          title: title,
+          image: image,
+          priceUSD: priceUSD,
+          priceIQD: priceIQD,
+          quantity: 1
+        });
+      }
+      
+      // Update cart
+      updateCart();
+      
+      // Animation
+      const originalHTML = this.innerHTML;
+      this.innerHTML = '<i class="fas fa-check"></i> Added to Cart';
+      this.style.backgroundColor = '#2ecc71';
+      
+      setTimeout(() => {
+        this.innerHTML = originalHTML;
+        this.style.backgroundColor = '';
+      }, 2000);
+      
+      // Pulse animation for cart icon
+      cartIcon.classList.add('pulse');
+      setTimeout(() => {
+        cartIcon.classList.remove('pulse');
+      }, 500);
+    });
+    
+    // Update cart display
+    function updateCart() {
+      // Update count
+      cartCount.textContent = cart.reduce((total, item) => total + item.quantity, 0);
+      
+      // Update items list
+      cartItems.innerHTML = '';
+      let total = 0;
+      
+      cart.forEach((item, index) => {
+        const currentCurrency = document.querySelector('.currency-btn.active').dataset.currency;
+        const price = currentCurrency === 'iqd' ? parseFloat(item.priceIQD.replace(',', '')) : item.priceUSD;
+        const priceDisplay = currentCurrency === 'iqd' ? item.priceIQD : `$${item.priceUSD.toFixed(2)}`;
+        
+        total += price * item.quantity;
+        
+        const cartItem = document.createElement('div');
+        cartItem.className = 'cart-item';
+        cartItem.innerHTML = `
+          <div class="cart-item-image">
+            <img src="${item.image}" alt="${item.title}">
+          </div>
+          <div class="cart-item-details">
+            <h4 class="cart-item-title">${item.title}</h4>
+            <div class="cart-item-price">${priceDisplay} x ${item.quantity}</div>
+          </div>
+          <button class="remove-item" data-index="${index}">
+            <i class="fas fa-trash"></i>
+          </button>
+        `;
+        
+        cartItems.appendChild(cartItem);
+      });
+      
+      // Update total
+      const currentCurrency = document.querySelector('.currency-btn.active').dataset.currency;
+      if (currentCurrency === 'iqd') {
+        cartTotal.textContent = `Total: ${(total).toLocaleString('en-US')} IQD`;
+      } else {
+        cartTotal.textContent = `Total: $${total.toFixed(2)}`;
+      }
+      
+      // Add event listeners to remove buttons
+      document.querySelectorAll('.remove-item').forEach(button => {
+        button.addEventListener('click', function() {
+          const index = parseInt(this.dataset.index);
+          cart.splice(index, 1);
+          updateCart();
+        });
+      });
+    }
+    
+    // Checkout button
+    checkoutBtn.addEventListener('click', () => {
+      if (cart.length === 0) {
+        alert('Your cart is empty!');
+        return;
+      }
+      
+      // In a real application, this would redirect to a checkout page
+      alert('Redirecting to checkout...');
+      // window.location.href = '/checkout';
+    });
+    
+    // Currency switcher
+    document.querySelectorAll('.currency-btn').forEach(button => {
+      button.addEventListener('click', function() {
+        const currency = this.dataset.currency;
+        
+        // Update active button
+        document.querySelectorAll('.currency-btn').forEach(btn => {
+          btn.classList.remove('active');
+        });
+        this.classList.add('active');
+        
+        // Update currency display
+        document.body.classList.toggle('currency-iqd', currency === 'iqd');
+        
+        // Update cart display with new currency
+        updateCart();
+      });
+    });
+    
+    // Filter products
+    const categoryFilter = document.getElementById('categoryFilter');
+    const priceFilter = document.getElementById('priceFilter');
+    const searchInput = document.getElementById('searchInput');
+    const productsGrid = document.getElementById('productsGrid');
+    const productCards = Array.from(document.querySelectorAll('.product-card'));
+    
+    function filterProducts() {
+      const categoryValue = categoryFilter.value;
+      const priceValue = priceFilter.value;
+      const searchValue = searchInput.value.toLowerCase();
+      
+      let hasVisibleProducts = false;
+      
+      productCards.forEach(card => {
+        const cardCategory = card.dataset.category;
+        const cardPrice = parseFloat(card.dataset.price);
+        const cardTitle = card.querySelector('.product-title').textContent.toLowerCase();
+        const cardDesc = card.querySelector('.product-description').textContent.toLowerCase();
+        
+        // Category filter
+        const categoryMatch = categoryValue === 'all' || cardCategory === categoryValue;
+        
+        // Price filter
+        let priceMatch = true;
+        if (priceValue !== 'all') {
+          const [min, max] = priceValue.split('-').map(Number);
+          priceMatch = cardPrice >= min && cardPrice <= max;
+        }
+        
+        // Search filter
+        const searchMatch = searchValue === '' || 
+          cardTitle.includes(searchValue) || 
+          cardDesc.includes(searchValue);
+        
+        // Show/hide card based on filters
+        if (categoryMatch && priceMatch && searchMatch) {
+          card.style.display = 'flex';
+          hasVisibleProducts = true;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+      
+      // Show empty state if no products match
+      const emptyState = document.querySelector('.empty-state');
+      if (!hasVisibleProducts) {
+        if (!emptyState) {
+          const emptyStateDiv = document.createElement('div');
+          emptyStateDiv.className = 'empty-state';
+          emptyStateDiv.innerHTML = `
+            <i class="fas fa-box-open"></i>
+            <h3>No products found</h3>
+            <p>Try adjusting your filters or search term</p>
+          `;
+          productsGrid.appendChild(emptyStateDiv);
+        }
+      } else if (emptyState) {
+        emptyState.remove();
+      }
+    }
+    
+    // Initialize filters
+    categoryFilter.addEventListener('change', filterProducts);
+    priceFilter.addEventListener('change', filterProducts);
+    searchInput.addEventListener('input', filterProducts);
+    
+    // Add to cart functionality
+    document.querySelectorAll('.add-to-cart').forEach(button => {
+      button.addEventListener('click', function() {
+        const productCard = this.closest('.product-card');
+        const productTitle = productCard.querySelector('.product-title').textContent;
+        const productImage = productCard.querySelector('.product-image img') ? 
+          productCard.querySelector('.product-image img').src : '';
+        const priceUSD = parseFloat(productCard.querySelector('.product-price').textContent.replace('$', ''));
+        const priceIQD = productCard.querySelector('.product-price-iqd').textContent;
+        
+        // Check if item already in cart
+        const existingItem = cart.find(item => item.title === productTitle);
+        
+        if (existingItem) {
+          existingItem.quantity++;
+        } else {
+          cart.push({
+            title: productTitle,
+            image: productImage,
+            priceUSD: priceUSD,
+            priceIQD: priceIQD,
+            quantity: 1
+          });
+        }
+        
+        // Animation
+        const originalHTML = this.innerHTML;
+        this.innerHTML = '<i class="fas fa-check"></i> Added';
+        this.style.backgroundColor = '#2ecc71';
+        
+        setTimeout(() => {
+          this.innerHTML = originalHTML;
+          this.style.backgroundColor = '';
+        }, 2000);
+        
+        // Update cart
+        updateCart();
+        
+        // Pulse animation for cart icon
+        cartIcon.classList.add('pulse');
+        setTimeout(() => {
+          cartIcon.classList.remove('pulse');
+        }, 500);
+        
+        // Open cart sidebar if it's the first item
+        if (cart.length === 1) {
+          cartSidebar.classList.add('active');
+        }
+      });
+    });
+    
+    // View details functionality
+    document.querySelectorAll('.details-btn').forEach(button => {
+      button.addEventListener('click', function() {
+        const productCard = this.closest('.product-card');
+        openModal(productCard);
+      });
+    });
+    
+    // Initialize all videos to autoplay (muted)
+    document.querySelectorAll('video').forEach(video => {
+      video.muted = true;
+      video.loop = true;
+      video.playsInline = true;
+    });
+  </script>
+</body>
+</html>

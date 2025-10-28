@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Digital Products - KurdoStore</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/6.6.6/css/flag-icons.min.css">
+  <style>
+    :root {
+      --primary-color: #6c5ce7;
+      --primary-light: #a29bfe;
+      --primary-dark: #341f97;
+      --dark-bg: #0f0c29;
+      --light-bg: #f8f9fa;
+      --text-light: #ffffff;
+      --text-dark: #333333;
+      --text-muted: #cccccc;
+      --card-bg: rgba(255, 255, 255, 0.05);
+      --transition: all 0.3s ease;
+      --discord-blurple: #5865F2;
+      --nitro-pink: #ff73fa;
+      --xbox-green: #107C10;
+      --tiktok-red: #FE2C55;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--dark-bg);
+      color: var(--text-light);
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Header Styles */
+    header {
+      background: rgba(10, 10, 20, 0.95);
+      padding: 15px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo img {
+      height: 35px;
+      width: auto;
+      transition: var(--transition);
+    }
+
+    .logo:hover img {
+      transform: scale(1.05);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .back-btn, .account-btn {
+      color: var(--text-light);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: var(--transition);
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+    }
+
+    .back-btn {
+      background: rgba(108, 92, 231, 0.2);
+    }
+
+    .back-btn:hover {
+      background: rgba(108, 92, 231, 0.4);
+    }
+
+    .account-btn {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .account-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Currency Selector */
+    .currency-selector {
+      display: flex;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 50px;
+      overflow: hidden;
+      border: 1px solid rgba(162, 155, 254, 0.3);
+    }
+
+    .currency-btn {
+      background: none;
+      border: none;
+      color: var(--text-light);
+      padding: 6px 12px;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.8rem;
+    }
+
+    .currency-btn.active {
+      background: var(--primary-color);
+    }
+
+    /* Animated Grid Background */
+    .bg-grid {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: 
+        linear-gradient(rgba(108, 92, 231, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(108, 92, 231, 0.1) 1px, transparent 1px);
+      background-size: 40px 40px;
+      animation: gridMove 40s linear infinite;
+    }
+
+    @keyframes gridMove {
+      0% { background-position: 0 0; }
+      100% { background-position: 1000px 1000px; }
+    }
+
+    .bg-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: radial-gradient(circle at center, rgba(108, 92, 231, 0.15) 0%, rgba(10, 10, 20, 0.9) 70%);
+      animation: pulseGlow 8s ease infinite alternate;
+    }
+
+    @keyframes pulseGlow {
+      0% { opacity: 0.5; }
+      100% { opacity: 0.8; }
+    }
+
+    /* Store Header */
+    .store-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .store-title {
+      font-size: 1.5rem;
+      background: linear-gradient(90deg, var(--primary-light), var(--primary-color));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    /* Category Filter Buttons */
+    .category-filters {
+      display: flex;
+      gap: 10px;
+      padding: 0 20px 20px;
+      flex-wrap: wrap;
+    }
+
+    .category-btn {
+      padding: 8px 15px;
+      border-radius: 20px;
+      border: none;
+      cursor: pointer;
+      transition: var(--transition);
+      font-weight: 600;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .category-btn.active {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .btn-all {
+      background: var(--primary-light);
+      color: var(--dark-bg);
+    }
+
+    .btn-discord {
+      background: var(--discord-blurple);
+      color: white;
+    }
+
+    .btn-nitro {
+      background: var(--nitro-pink);
+      color: white;
+    }
+
+    .btn-xbox {
+      background: var(--xbox-green);
+      color: white;
+    }
+
+    .btn-tiktok {
+      background: var(--tiktok-red);
+      color: white;
+    }
+
+    .btn-spotify {
+      background: #1DB954;
+      color: white;
+    }
+
+    .btn-other {
+      background: var(--text-muted);
+      color: var(--dark-bg);
+    }
+
+    /* Products Grid */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .product-card {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: var(--transition);
+      border: 1px solid rgba(162, 155, 254, 0.1);
+      backdrop-filter: blur(10px);
+    }
+
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(108, 92, 231, 0.3);
+      border-color: var(--primary-light);
+    }
+
+    .product-image {
+      height: 160px;
+      background: rgba(162, 155, 254, 0.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .product-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .product-card:hover .product-image img {
+      transform: scale(1.05);
+    }
+
+    .product-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: var(--primary-color);
+      color: white;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+
+    .product-details {
+      padding: 15px;
+    }
+
+    .product-platform {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .platform-icon {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+    }
+
+    .product-title {
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+      color: var(--primary-light);
+    }
+
+    .product-description {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 15px;
+      line-height: 1.5;
+    }
+
+    .product-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .product-price {
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .product-price-iqd {
+      display: none;
+      font-size: 0.9rem;
+    }
+
+    .currency-iqd .product-price {
+      display: none;
+    }
+
+    .currency-iqd .product-price-iqd {
+      display: block;
+    }
+
+    .add-to-cart {
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: var(--transition);
+      font-size: 0.85rem;
+    }
+
+    .add-to-cart:hover {
+      background: var(--primary-light);
+    }
+
+    /* Shopping Cart Sidebar */
+    .cart-sidebar {
+      position: fixed;
+      top: 0;
+      right: -400px;
+      width: 100%;
+      max-width: 400px;
+      height: 100vh;
+      background: var(--dark-bg);
+      box-shadow: -5px 0 15px rgba(0,0,0,0.3);
+      z-index: 1000;
+      transition: right 0.3s ease;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .cart-sidebar.active {
+      right: 0;
+    }
+
+    .cart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .cart-title {
+      font-size: 1.5rem;
+      color: var(--primary-light);
+    }
+
+    .close-cart {
+      background: none;
+      border: none;
+      color: var(--text-light);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .cart-items {
+      flex: 1;
+      overflow-y: auto;
+      margin-bottom: 20px;
+    }
+
+    .cart-item {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 15px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .cart-item-image {
+      width: 70px;
+      height: 50px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 6px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .cart-item-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .cart-item-details {
+      flex: 1;
+    }
+
+    .cart-item-title {
+      font-size: 1rem;
+      margin-bottom: 5px;
+      color: var(--primary-light);
+    }
+
+    .cart-item-price {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .remove-item {
+      background: none;
+      border: none;
+      color: #ff6b6b;
+      cursor: pointer;
+      font-size: 1rem;
+      align-self: flex-start;
+    }
+
+    .cart-total {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+      text-align: right;
+    }
+
+    .checkout-btn {
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 15px;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      width: 100%;
+    }
+
+    .checkout-btn:hover {
+      background: var(--primary-light);
+    }
+
+    /* Cart Icon */
+    .cart-icon {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: var(--primary-color);
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 5px 20px rgba(108, 92, 231, 0.5);
+      z-index: 999;
+      transition: var(--transition);
+    }
+
+    .cart-icon:hover {
+      transform: scale(1.1);
+    }
+
+    .cart-count {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background: #ff6b6b;
+      color: white;
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        gap: 10px;
+        padding: 10px;
+      }
+
+      .header-actions {
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      .category-filters {
+        overflow-x: auto;
+        padding-bottom: 10px;
+        flex-wrap: nowrap;
+      }
+
+      .category-btn {
+        white-space: nowrap;
+      }
+
+      .products-grid {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      }
+
+      .store-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .cart-sidebar {
+        width: 100%;
+        max-width: 100%;
+        right: -100%;
+      }
+
+      .cart-sidebar.active {
+        right: 0;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .products-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .back-btn span, .account-btn span {
+        display: none;
+      }
+
+      .back-btn, .account-btn {
+        padding: 8px;
+        width: 36px;
+        height: 36px;
+        justify-content: center;
+        border-radius: 50%;
+      }
+
+      .cart-icon {
+        width: 50px;
+        height: 50px;
+        bottom: 20px;
+        right: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Background Elements -->
+  <div class="bg-grid"></div>
+  <div class="bg-overlay"></div>
+
+  <!-- Header -->
+  <header>
+    <a href="index.html" class="logo">
+      <img src="https://cdn.glitch.global/8188fe2e-4a88-414a-b90a-b1cd61ad6924/kurdo-logo.jpg?v=1745094452283" alt="KurdoStore">
+    </a>
+    
+    <div class="header-actions">
+      <a href="index.html" class="back-btn">
+        <i class="fas fa-arrow-left"></i>
+        <span>Back</span>
+      </a>
+      
+      <div class="currency-selector">
+        <button class="currency-btn active" data-currency="usd">
+          <span class="fi fi-us"></span>
+          <span>USD</span>
+        </button>
+        <button class="currency-btn" data-currency="iqd">
+          <span class="fi fi-iq"></span>
+          <span>IQD</span>
+        </button>
+      </div>
+      
+      <a href="login.html" class="account-btn">
+        <i class="fas fa-user"></i>
+        <span>Account</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Store Content -->
+  <div class="store-header">
+    <h1 class="store-title">KurdoStore</h1>
+  </div>
+
+  <!-- Category Filter Buttons -->
+  <div class="category-filters">
+    <button class="category-btn btn-all active" data-category="all">
+      <i class="fas fa-star"></i> All
+    </button>
+    <button class="category-btn btn-discord" data-category="discord">
+      <i class="fab fa-discord"></i> Discord
+    </button>
+    <button class="category-btn btn-nitro" data-category="nitro">
+      <i class="fas fa-bolt"></i> Nitro
+    </button>
+    <button class="category-btn btn-xbox" data-category="xbox">
+      <i class="fab fa-xbox"></i> Xbox
+    </button>
+    <button class="category-btn btn-tiktok" data-category="tiktok">
+      <i class="fab fa-tiktok"></i> TikTok
+    </button>
+    <button class="category-btn btn-spotify" data-category="spotify">
+      <i class="fab fa-spotify"></i> Spotify
+    </button>
+    <button class="category-btn btn-other" data-category="other">
+      <i class="fas fa-gift"></i> Other
+    </button>
+  </div>
+
+  <div class="products-grid">
+    <!-- Discord Account -->
+    <div class="product-card" data-category="discord">
+      <div class="product-badge">Popular</div>
+      <div class="product-image">
+        <img src="https://cdn.glitch.global/8188fe2e-4a88-414a-b90a-b1cd61ad6924/discord-account.jpg?v=1745095950036" alt="Discord Account">
+      </div>
+      <div class="product-details">
+        <div class="product-platform">
+          <span class="platform-icon" style="background: var(--discord-blurple);">
+            <i class="fab fa-discord"></i>
+          </span>
+          Discord Account
+        </div>
+        <h3 class="product-title">2016 OG Account</h3>
+        <p class="product-description">
+          Rare 2016 Discord account with 4-letter username. Full access included.
+        </p>
+        <div class="product-footer">
+          <div class="price-container">
+            <span class="product-price">$39.99</span>
+            <span class="product-price-iqd">57,985 IQD</span>
+          </div>
+          <button class="add-to-cart" data-id="1" data-title="2016 OG Account" data-price="39.99" data-price-iqd="57985" data-image="https://cdn.glitch.global/8188fe2e-4a88-414a-b90a-b1cd61ad6924/discord-account.jpg?v=1745095950036">
+            <i class="fas fa-cart-plus"></i> Add
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Discord Nitro -->
+    <div class="product-card" data-category="nitro">
+      <div class="product-badge">New</div>
+      <div class="product-image">
+        <img src="https://cdn.glitch.global/8188fe2e-4a88-414a-b90a-b1cd61ad6924/discord-nitro.jpg?v=1745095950036" alt="Discord Nitro">
+      </div>
+      <div class="product-details">
+        <div class="product-platform">
+          <span class="platform-icon" style="background: var(--nitro-pink);">
+            <i class="fas fa-bolt"></i>
+          </span>
+          Discord Nitro
+        </div>
+        <h3 class="product-title">Nitro 1 Year</h3>
+        <p class="product-description">
+          Full 1 year Discord Nitro subscription. Direct activation to your account.
+        </p>
+        <div class="product-footer">
+          <div class="price-container">
+            <span class="product-price">$89.99</span>
+            <span class="product-price-iqd">130,485 IQD</span>
+          </div>
+          <button class="add-to-cart" data-id="2" data-title="Nitro 1 Year" data-price="89.99" data-price-iqd="130485" data-image="https://cdn.glitch.global/8188fe2e-4a88-414a-b90a-b1cd61ad6924/discord-nitro.jpg?v=1745095950036">
+            <i class="fas fa-cart-plus"></i> Add
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Xbox Game Pass -->
+    <div class="product-card" data-category="xbox">
+      <div class="product-image">
+        <img src="https://cdn.glitch.global/8188fe2e-4a88-414a-b90a-b1cd61ad6924/xbox-gamepass.jpg?v=1745095950036" alt="Xbox Game Pass">
+      </div>
+      <div class="product-details">
+        <div class="product-platform">
+          <span class="platform-icon" style="background: var(--xbox-green);">
+            <i class="fab fa-xbox"></i>
+          </span>
+          Xbox Game Pass
+        </div>
+        <h3 class="product-title">Ultimate 3 Months</h3>
+        <p class="product-description">
+          Xbox Game Pass Ultimate 3 month subscription code. Works worldwide.
+        </p>
+        <div class="product-footer">
+          <div class="price-container">
+            <span class="product-price">$24.99</span>
+            <span class="product-price-iqd">36,235 IQD</span>
+          </div>
+          <button class="add-to-cart" data-id="3" data-title="Ultimate 3 Months" data-price="24.99" data-price-iqd="36235" data-image="https://cdn.glitch.global/8188fe2e-4a88-414a-b90a-b1cd61ad6924/xbox-gamepass.jpg?v=1745095950036">
+            <i class="fas fa-cart-plus"></i> Add
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TikTok Account -->
+    <div class="product-card" data-category="tiktok">
+      <div class="product-badge">Sale</div>
+      <div class="product-image">
+        <img src="https://cdn.glitch.global/8188fe2e-4a88-414a-b90a-b1cd61ad6924/tiktok-account.jpg?v=1745095950036" alt="TikTok Account">
+      </div>
+      <div class="product-details">
+        <div class="product-platform">
+          <span class="platform-icon" style="background: var(--tiktok-red);">
+            <i class="fab fa-tiktok"></i>
+          </span>
+          TikTok Account
+        </div>
+        <h3 class="product-title">Verified Creator</h3>
+        <p class="product-description">
+          Verified TikTok creator account with 50K+ followers. Includes email access.
+        </p>
+        <div class="product-footer">
+          <div class="price-container">
+            <span class="product-price">$199.99</span>
+            <span class="product-price-iqd">289,985 IQD</span>
+          </div>
+          <button class="add-to-cart" data-id="4" data-title="Verified Creator" data-price="199.99" data-price-iqd="289985" data-image="https://cdn.glitch.global/8188fe2e-4a88-414a-b90a-b1cd61ad6924/tiktok-account.jpg?v=1745095950036">
+            <i class="fas fa-cart-plus"></i> Add
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Spotify Premium -->
+    <div class="product-card" data-category="spotify">
+      <div class="product-image">
+        <img src="https://cdn.glitch.global/8188fe2e-4a88-414a-b90a-b1cd61ad6924/spotify-premium.jpg?v=1745095950036" alt="Spotify Premium">
+      </div>
+      <div class="product-details">
+        <div class="product-platform">
+          <span class="platform-icon" style="background: #1DB954;">
+            <i class="fab fa-spotify"></i>
+          </span>
+          Spotify Premium
+        </div>
+        <h3 class="product-title">Family Plan 1 Year</h3>
+        <p class="product-description">
+          Spotify Premium Family plan for 1 year. Up to 6 accounts included.
+        </p>
+        <div class="product-footer">
+          <div class="price-container">
+            <span class="product-price">$59.99</span>
+            <span class="product-price-iqd">86,985 IQD</span>
+          </div>
+          <button class="add-to-cart" data-id="5" data-title="Family Plan 1 Year" data-price="59.99" data-price-iqd="86985" data-image="https://cdn.glitch.global/8188fe2e-4a88-414a-b90a-b1cd61ad6924/spotify-premium.jpg?v=1745095950036">
+            <i class="fas fa-cart-plus"></i> Add
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Amazon Gift Card -->
+    <div class="product-card" data-category="other">
+      <div class="product-image">
+        <img src="https://cdn.glitch.global/8188fe2e-4a88-414a-b90a-b1cd61ad6924/gift-card.jpg?v=1745095950036" alt="Amazon Gift Card">
+      </div>
+      <div class="product-details">
+        <div class="product-platform">
+          <span class="platform-icon">
+            <i class="fas fa-gift"></i>
+          </span>
+          Gift Card
+        </div>
+        <h3 class="product-title">Amazon $100</h3>
+        <p class="product-description">
+          Digital Amazon gift card worth $100. Delivered instantly via email.
+        </p>
+        <div class="product-footer">
+          <div class="price-container">
+            <span class="product-price">$89.99</span>
+            <span class="product-price-iqd">130,485 IQD</span>
+          </div>
+          <button class="add-to-cart" data-id="6" data-title="Amazon $100" data-price="89.99" data-price-iqd="130485" data-image="https://cdn.glitch.global/8188fe2e-4a88-414a-b90a-b1cd61ad6924/gift-card.jpg?v=1745095950036">
+            <i class="fas fa-cart-plus"></i> Add
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shopping Cart Icon -->
+  <div class="cart-icon" id="cartIcon">
+    <i class="fas fa-shopping-cart"></i>
+    <span class="cart-count" id="cartCount">0</span>
+  </div>
+
+  <!-- Shopping Cart Sidebar -->
+  <div class="cart-sidebar" id="cartSidebar">
+    <div class="cart-header">
+      <h3 class="cart-title">Your Cart</h3>
+      <button class="close-cart" id="closeCart">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="cart-items" id="cartItems">
+      <!-- Cart items will be added here dynamically -->
+    </div>
+    <div class="cart-total" id="cartTotal">
+      Total: $0.00
+    </div>
+    <button class="checkout-btn" id="checkoutBtn">
+      Proceed to Checkout
+    </button>
+  </div>
+
+  <script>
+    // Shopping cart functionality
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const cartIcon = document.getElementById('cartIcon');
+    const cartCount = document.getElementById('cartCount');
+    const cartSidebar = document.getElementById('cartSidebar');
+    const closeCart = document.getElementById('closeCart');
+    const cartItems = document.getElementById('cartItems');
+    const cartTotal = document.getElementById('cartTotal');
+    const checkoutBtn = document.getElementById('checkoutBtn');
+    
+    // Initialize cart
+    updateCart();
+
+    // Currency Switcher
+    document.querySelectorAll('.currency-btn').forEach(button => {
+      button.addEventListener('click', function() {
+        // Update active button
+        document.querySelectorAll('.currency-btn').forEach(btn => {
+          btn.classList.remove('active');
+        });
+        this.classList.add('active');
+        
+        // Toggle currency display
+        document.body.classList.toggle('currency-iqd', this.dataset.currency === 'iqd');
+        
+        // Update cart display
+        updateCart();
+      });
+    });
+
+    // Category Filter Buttons
+    const categoryBtns = document.querySelectorAll('.category-btn');
+    const productCards = document.querySelectorAll('.product-card');
+
+    categoryBtns.forEach(btn => {
+      btn.addEventListener('click', function() {
+        // Update active button
+        categoryBtns.forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        
+        const category = this.dataset.category;
+        
+        // Filter products
+        productCards.forEach(card => {
+          if (category === 'all' || card.dataset.category === category) {
+            card.style.display = 'block';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // Add to Cart Functionality
+    document.querySelectorAll('.add-to-cart').forEach(button => {
+      button.addEventListener('click', function() {
+        const product = {
+          id: this.dataset.id,
+          title: this.dataset.title,
+          price: parseFloat(this.dataset.price),
+          priceIqd: parseInt(this.dataset.priceIqd),
+          image: this.dataset.image,
+          quantity: 1
+        };
+        
+        // Check if item already in cart
+        const existingItem = cart.find(item => item.id === product.id);
+        
+        if (existingItem) {
+          existingItem.quantity++;
+        } else {
+          cart.push(product);
+        }
+        
+        // Save to localStorage
+        localStorage.setItem('cart', JSON.stringify(cart));
+        
+        // Update cart
+        updateCart();
+        
+        // Animation
+        const originalText = this.innerHTML;
+        this.innerHTML = '<i class="fas fa-check"></i> Added';
+        this.style.backgroundColor = '#2ecc71';
+        
+        setTimeout(() => {
+          this.innerHTML = originalText;
+          this.style.backgroundColor = '';
+        }, 2000);
+        
+        // Open cart sidebar if it's the first item
+        if (cart.length === 1) {
+          cartSidebar.classList.add('active');
+        }
+      });
+    });
+
+    // Cart Icon Click
+    cartIcon.addEventListener('click', () => {
+      cartSidebar.classList.add('active');
+    });
+
+    // Close Cart
+    closeCart.addEventListener('click', () => {
+      cartSidebar.classList.remove('active');
+    });
+
+    // Remove Item from Cart
+    function setupRemoveButtons() {
+      document.querySelectorAll('.remove-item').forEach(button => {
+        button.addEventListener('click', function() {
+          const itemId = this.dataset.id;
+          const itemIndex = cart.findIndex(item => item.id === itemId);
+          
+          if (itemIndex > -1) {
+            cart.splice(itemIndex, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCart();
+          }
+        });
+      });
+    }
+
+    // Update Cart Display
+    function updateCart() {
+      // Update count
+      const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+      cartCount.textContent = totalItems;
+      
+      // Update cart items
+      cartItems.innerHTML = '';
+      let total = 0;
+      
+      cart.forEach(item => {
+        const currentCurrency = document.querySelector('.currency-btn.active').dataset.currency;
+        const price = currentCurrency === 'iqd' ? item.priceIqd : item.price;
+        const priceDisplay = currentCurrency === 'iqd' ? 
+          `${item.priceIqd.toLocaleString('en-US')} IQD` : 
+          `$${item.price.toFixed(2)}`;
+        
+        total += price * item.quantity;
+        
+        const cartItem = document.createElement('div');
+        cartItem.className = 'cart-item';
+        cartItem.innerHTML = `
+          <div class="cart-item-image">
+            <img src="${item.image}" alt="${item.title}">
+          </div>
+          <div class="cart-item-details">
+            <h4 class="cart-item-title">${item.title}</h4>
+            <div class="cart-item-price">${priceDisplay} × ${item.quantity}</div>
+          </div>
+          <button class="remove-item" data-id="${item.id}">
+            <i class="fas fa-trash"></i>
+          </button>
+        `;
+        
+        cartItems.appendChild(cartItem);
+      });
+      
+      // Update total
+      const currentCurrency = document.querySelector('.currency-btn.active').dataset.currency;
+      if (currentCurrency === 'iqd') {
+        cartTotal.textContent = `Total: ${total.toLocaleString('en-US')} IQD`;
+      } else {
+        cartTotal.textContent = `Total: $${total.toFixed(2)}`;
+      }
+      
+      // Setup remove buttons
+      setupRemoveButtons();
+    }
+
+    // Checkout Button
+    checkoutBtn.addEventListener('click', () => {
+      if (cart.length === 0) {
+        alert('Your cart is empty!');
+        return;
+      }
+      
+      // In a real implementation, this would redirect to a checkout page
+      alert('Redirecting to checkout...');
+      // window.location.href = '/checkout';
+    });
+  </script>
+</body>
+</html>
